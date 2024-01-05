@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-color: rgb(25, 25, 25);
+        color: white;
+    }
+
+    .title {
+        font-size: 30px;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+        margin-top: 30px;
+    }
+
+    .move-image {
+        height: 150px;
+        width: 150px;
+    }
+
+    .move-button {
+        background-color: transparent;
+        border: 3px solid white;
+        width: 250px;
+        height: 250px;
+        border-radius: 125px;
+        padding: 10px;
+        margin-right: 30px;
+    }
+
+    .move-button:hover {
+        cursor: pointer;
+        background-color: rgb(170, 171, 173);
+
+    }
+
+    .reset-button {
+        background-color: transparent;
+        color: rgb(255, 234, 0);
+        font-size: 50px;
+        font-family: 'Courier New', Courier, monospace;
+        border-radius: 15px;
+        border: 3px solid white;
+        margin-top: 20px;
+    }
+
+    .reset-button:hover {
+        background-color: rgb(170, 171, 173);
+        cursor: pointer;
+
+    }
+
+    .output {
+        font-size: 35px;
+        font-weight: bold;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .text {
+        font-size: 27px;
+        font-weight: bold;
+        font-family: 'Courier New', Courier, monospace;
+    }
+</style>
+
+<body>
+    <p class="title">ROCK PAPERS SCISSORS </p>
+
+
+    <button onclick="Computer(1)" class="move-button"><img src="rock-emoji.png" class="move-image"></button>
+    <button onclick="Computer(2)" class="move-button"><img src="paper-emoji.png" class="move-image"></button>
+    <button onclick="Computer(3)" class="move-button"><img src="scissors-emoji.png" class="move-image"></button><br><br>
+
+
+
+
+    <p class="js-output output"></p>
+    <p class="js-playerChoice text">Choose Something</p>
+    <h1 class="js-score text">Wins: 0 Losses: 0 Ties: 0</h1>
+    <button onclick="ResetScore()" class="reset-button">Reset Score</button>
+
+    <script>
+
+        const score = {
+            wins: 0,
+            losses: 0,
+            ties: 0
+
+        };
+        function ResetScore() {
+            score.losses = 0;
+            score.ties = 0;
+            score.wins = 0;
+            document.querySelector('.js-score').innerHTML = 'Wins: 0 Losses: 0 Ties : 0';
+        }
+        function Computer(a) {
+            var x = a;
+
+            if (a === 1) {
+                x = 'rock';
+
+            }
+            if (a === 2) {
+                x = 'paper';
+
+            }
+            if (a === 3) {
+
+                x = 'scissors';
+            }
+
+            let ComputerChoice = Math.floor(Math.random() * 3) + 1;
+            let cmove;
+            if (ComputerChoice === 1) cmove = 'rock';
+            if (ComputerChoice === 2) cmove = 'paper';
+            if (ComputerChoice === 3) cmove = 'scissors';
+            document.querySelector('.js-playerChoice').innerHTML = `<div class="text">You: </div> <img src="${x}-emoji.png" class="move-image"> <div class="text">Computer: </div> <img src="${cmove}-emoji.png" class="move-image">`;
+            let str = 'dummy';
+            if (ComputerChoice === 1) {
+
+                if (a === 3) {
+                    str = 'You LOST';
+
+                    score.losses++;
+                }
+                if (a === 2) {
+                    score.wins++;
+                    str = 'You WON';
+                }
+                if (a === 1) {
+                    score.ties++;
+                    str = 'TIE';
+                }
+
+            }
+            if (ComputerChoice === 2) {
+                if (a === 3) {
+                    str = 'You WON';
+                    score.wins++;
+                }
+                if (a === 1) {
+                    score.losses++;
+                    str = 'You LOST';
+                }
+                if (a === 2) {
+                    score.ties++;
+                    str = 'TIE';
+                }
+            }
+            if (ComputerChoice === 3) {
+                if (a === 1) {
+                    score.wins++;
+                    str = 'You WON';
+                }
+                if (a === 2) {
+                    score.losses++;
+                    str = 'You LOST';
+                }
+                if (a === 3) {
+                    str = 'TIE';
+                    score.ties++;
+                }
+            }
+            document.querySelector('.js-output').innerHTML = `${str}`;
+            document.querySelector('.js-score').innerHTML = `Wins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties}`;
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
