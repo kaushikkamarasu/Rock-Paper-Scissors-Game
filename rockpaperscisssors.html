@@ -84,9 +84,26 @@
     <p class="js-playerChoice text">Choose Something</p>
     <h1 class="js-score text">Wins: 0 Losses: 0 Ties: 0</h1>
     <button onclick="ResetScore()" class="reset-button">Reset Score</button>
+    <button onclick="autoplay()" class="reset-button">Auto Play</button>
 
     <script>
+        let IntervalId;
+        let isPlaying = false;
+        function autoplay() {
+            if (!isPlaying) {
+                IntervalId = setInterval(function () {
+                    let temp = Math.floor(Math.random() * 3) + 1;
+                    Computer(temp);
+                }, 500);
+                isPlaying = true;
+            }
+            else {
+                clearInterval(IntervalId);
+                isPlaying = false;
+            }
 
+
+        }
         const score = {
             wins: 0,
             losses: 0,
